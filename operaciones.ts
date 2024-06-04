@@ -64,7 +64,7 @@ if (inputnum1 && resultado3) {
 }
 
 
-
+// CALCULAR NUMERO MAYOR, MEDIO Y MENOR
 
 
 let entrada1 = document.getElementById('txtnumero7') as HTMLInputElement;
