@@ -55,6 +55,7 @@ if (inputnum1 && resultado3) {
 else {
     console.error("Error: Input elements not found!");
 }
+// CALCULAR NUMERO MAYOR, MEDIO Y MENOR
 var entrada1 = document.getElementById('txtnumero7');
 var entrada2 = document.getElementById('txtnumero8');
 var entrada3 = document.getElementById('txtnumero9');
@@ -81,4 +82,47 @@ if (entrada1 && entrada2 && entrada3 && buttonresultado4 && resultado4) {
 }
 else {
     console.error("Error: Input elements not found!");
+}
+/// CALCULAR POTENCIA DE UN NUMERO
+document.addEventListener('DOMContentLoaded', function () {
+    // Referencias a los elementos del DOM
+    var inputBase = document.getElementById('txtBase');
+    var inputExponente = document.getElementById('txtExponente');
+    var calcularPotenciaButton = document.getElementById('calcularPotencia');
+    var resultadoPotenciaElement = document.getElementById('resultadoPotencia');
+    if (inputBase && inputExponente && calcularPotenciaButton && resultadoPotenciaElement) {
+        calcularPotenciaButton.addEventListener('click', function () {
+            // Obtener los valores de los inputs y convertirlos a números
+            var base = parseFloat(inputBase.value);
+            var exponente = parseFloat(inputExponente.value);
+            if (isNaN(base) || isNaN(exponente)) {
+                resultadoPotenciaElement.textContent = 'Por favor ingrese valores válidos.';
+            }
+            else {
+                // Calcular la potencia
+                var potencia = Math.pow(base, exponente);
+                resultadoPotenciaElement.textContent = "Resultado: ".concat(potencia.toFixed(2));
+            }
+        });
+    }
+});
+var TextoInversor = /** @class */ (function () {
+    function TextoInversor(texto) {
+        this.texto = texto;
+    }
+    TextoInversor.prototype.invertir = function () {
+        return this.texto.split('').reverse().join('');
+    };
+    return TextoInversor;
+}());
+var inputElementt = document.getElementById('txtinvertir');
+var resultadoButtont = document.getElementById('invertirTexto');
+var resultadoElementt = document.getElementById('resultado10');
+if (inputElementt && resultadoButtont && resultadoElementt) {
+    resultadoButtont.addEventListener('click', function () {
+        var texto = inputElementt.value;
+        var inversor = new TextoInversor(texto);
+        var textoInvertido = inversor.invertir();
+        resultadoElementt.textContent = "Resultado10: ".concat(textoInvertido);
+    });
 }

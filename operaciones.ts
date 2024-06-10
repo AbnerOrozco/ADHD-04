@@ -100,4 +100,58 @@ if (entrada1 && entrada2 && entrada3 && buttonresultado4 && resultado4) {
 } else {
   console.error("Error: Input elements not found!");
 }
+/// CALCULAR POTENCIA DE UN NUMERO
+document.addEventListener('DOMContentLoaded', () => {
+  // Referencias a los elementos del DOM
+  const inputBase = document.getElementById('txtBase') as HTMLInputElement;
+  const inputExponente = document.getElementById('txtExponente') as HTMLInputElement;
+  const calcularPotenciaButton = document.getElementById('calcularPotencia') as HTMLButtonElement;
+  const resultadoPotenciaElement = document.getElementById('resultadoPotencia') as HTMLParagraphElement;
 
+  if (inputBase && inputExponente && calcularPotenciaButton && resultadoPotenciaElement) {
+      calcularPotenciaButton.addEventListener('click', () => {
+          // Obtener los valores de los inputs y convertirlos a números
+          const base = parseFloat(inputBase.value);
+          const exponente = parseFloat(inputExponente.value);
+
+          if (isNaN(base) || isNaN(exponente)) {
+              resultadoPotenciaElement.textContent = 'Por favor ingrese valores válidos.';
+          } else {
+              // Calcular la potencia
+              const potencia = Math.pow(base, exponente);
+              resultadoPotenciaElement.textContent = `Resultado: ${potencia.toFixed(2)}`;
+          }
+      });
+  }
+});
+
+
+
+class TextoInversor {
+  texto: string;
+
+  constructor(texto: string) {
+      this.texto = texto;
+  }
+
+  invertir(): string {
+      return this.texto.split('').reverse().join('');
+  }
+}
+
+let inputElementt = document.getElementById('txtinvertir') as HTMLInputElement;
+let resultadoButtont = document.getElementById('invertirTexto') as HTMLButtonElement;
+let resultadoElementt = document.getElementById('resultado10') as HTMLParagraphElement;
+
+if (inputElementt && resultadoButtont && resultadoElementt) {
+  resultadoButtont.addEventListener('click', () => {
+    
+      let texto: string = inputElementt.value;
+
+      let inversor = new TextoInversor(texto);
+
+      let textoInvertido: string = inversor.invertir();
+
+      resultadoElementt.textContent = `Resultado10: ${textoInvertido}`;
+  });
+}
