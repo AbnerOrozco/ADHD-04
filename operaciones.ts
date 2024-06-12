@@ -246,7 +246,7 @@ esNumeroPrimo(): Boolean {
   if (this.primo <= 1) return false;
   if (this.primo <= 3) return true;
 
-  if (this.primo % 2 ==0 0 || this.primo % 3 === 0) return false; 
+  if (this.primo % 2 == 0 || this.primo % 3 === 0) return false; 
   
   for(let i = 5; i * i <= this.primo; i+= 6){
     if (this.primo % i === 0 || this.primo % (i + 2 ) === 0) return false;
@@ -254,16 +254,16 @@ esNumeroPrimo(): Boolean {
   return true;
 }
 }
-const primoNum = document.getElementById('txtprimoNum') as HTMLAnchorElement;
+const primoNum = document.getElementById('txtprimoNum') as HTMLInputElement;
 const calcularPrimo = document.getElementById ('calcularPrimo') as HTMLButtonElement;
 const resultadoPrimo = document.getElementById ('resultadoPrimo') as HTMLParagraphElement;
 
 if(primoNum && calcularPrimo && resultadoPrimo){
   calcularPrimo.addEventListener('click', () =>{
-    const primo: number = parseInt(primoNum.Value);
+    const primo: number = parseInt(primoNum.value);
     try{
       const calculadorprimo = new NumeroPrimoCalculador(primo);
-      const esPrimo: boolean = calculadorprimo.esNumeroPrimo();
+      const esPrimo: Boolean = calculadorprimo.esNumeroPrimo();
       resultadoPrimo.textContent = esPrimo ? `el numero ${primo} es primo. ` : `el numer ${primo} no es primo.`;
     }catch(error){
       if(error instanceof Error){
@@ -275,4 +275,54 @@ if(primoNum && calcularPrimo && resultadoPrimo){
   });
 }else {
   console.error("Error: no se pudo obtener uno omas elementos del DOM.")
+}
+
+// CONTADOR DE VOCALES
+class ContadorVocales {
+  texto: string;
+
+  constructor(texto: string) {
+    this.texto = texto;
+  }
+
+  vocalesContadas(): number {
+    const tamTexto: number = this.texto.length;
+    const vocales: string = "aeiouAEIOU"; // Consideramos también las mayúsculas
+    let contador: number = 0;
+
+    for (let i = 0; i < tamTexto; i++) {
+      if (vocales.indexOf(this.texto[i]) !== -1) {
+        contador++;
+      }
+    }
+
+    return contador;
+  }
+}
+
+// Obtener las referencias de los elementos y asegurar que son HTMLInputElements y HTMLButtonElement
+const texto1 = document.getElementById('txtTexto') as HTMLInputElement;
+const calculoTexto = document.getElementById('calcularTexto') as HTMLButtonElement;
+const textoResultado = document.getElementById('resultadoTexto') as HTMLParagraphElement;
+
+if (texto1 && calculoTexto && textoResultado) {
+  calculoTexto.addEventListener('click', () => {
+    const textoIngresado: string = texto1.value;
+
+    try {
+      const calculador = new ContadorVocales(textoIngresado);
+      const cantidadVocales: number = calculador.vocalesContadas();
+      textoResultado.textContent = cantidadVocales > 0 
+        ? `El texto "${textoIngresado}" tiene ${cantidadVocales} vocales.` 
+        : `El texto "${textoIngresado}" no tiene vocales.`;
+    } catch (error) {
+      if (error instanceof Error) {
+        textoResultado.textContent = `Error: ${error.message}`;
+      } else {
+        textoResultado.textContent = `Error desconocido`;
+      }
+    }
+  });
+} else {
+  console.error("Error: No se pudo obtener uno o más elementos del DOM.");
 }

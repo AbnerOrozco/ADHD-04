@@ -218,3 +218,91 @@ if (Perfectonun && perfectocal && perfectoresul) {
 else {
     console.error("Error: No se pudo obtener uno o más elementos del DOM.");
 }
+var NumeroPrimoCalculador = /** @class */ (function () {
+    function NumeroPrimoCalculador(primo) {
+        this.primo = primo;
+    }
+    NumeroPrimoCalculador.prototype.esNumeroPrimo = function () {
+        if (this.primo <= 1)
+            return false;
+        if (this.primo <= 3)
+            return true;
+        if (this.primo % 2 == 0 || this.primo % 3 === 0)
+            return false;
+        for (var i = 5; i * i <= this.primo; i += 6) {
+            if (this.primo % i === 0 || this.primo % (i + 2) === 0)
+                return false;
+        }
+        return true;
+    };
+    return NumeroPrimoCalculador;
+}());
+var primoNum = document.getElementById('txtprimoNum');
+var calcularPrimo = document.getElementById('calcularPrimo');
+var resultadoPrimo = document.getElementById('resultadoPrimo');
+if (primoNum && calcularPrimo && resultadoPrimo) {
+    calcularPrimo.addEventListener('click', function () {
+        var primo = parseInt(primoNum.value);
+        try {
+            var calculadorprimo = new NumeroPrimoCalculador(primo);
+            var esPrimo = calculadorprimo.esNumeroPrimo();
+            resultadoPrimo.textContent = esPrimo ? "el numero ".concat(primo, " es primo. ") : "el numer ".concat(primo, " no es primo.");
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                resultadoPrimo.textContent = "Error ".concat(error.message);
+            }
+            else {
+                resultadoPrimo.textContent = "Error desconocido";
+            }
+        }
+    });
+}
+else {
+    console.error("Error: no se pudo obtener uno omas elementos del DOM.");
+}
+// CONTADOR DE VOCALES
+var ContadorVocales = /** @class */ (function () {
+    function ContadorVocales(texto) {
+        this.texto = texto;
+    }
+    ContadorVocales.prototype.vocalesContadas = function () {
+        var tamTexto = this.texto.length;
+        var vocales = "aeiouAEIOU"; // Consideramos también las mayúsculas
+        var contador = 0;
+        for (var i = 0; i < tamTexto; i++) {
+            if (vocales.indexOf(this.texto[i]) !== -1) {
+                contador++;
+            }
+        }
+        return contador;
+    };
+    return ContadorVocales;
+}());
+// Obtener las referencias de los elementos y asegurar que son HTMLInputElements y HTMLButtonElement
+var texto1 = document.getElementById('txtTexto');
+var calculoTexto = document.getElementById('calcularTexto');
+var textoResultado = document.getElementById('resultadoTexto');
+if (texto1 && calculoTexto && textoResultado) {
+    calculoTexto.addEventListener('click', function () {
+        var textoIngresado = texto1.value;
+        try {
+            var calculador = new ContadorVocales(textoIngresado);
+            var cantidadVocales = calculador.vocalesContadas();
+            textoResultado.textContent = cantidadVocales > 0
+                ? "El texto \"".concat(textoIngresado, "\" tiene ").concat(cantidadVocales, " vocales.")
+                : "El texto \"".concat(textoIngresado, "\" no tiene vocales.");
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                textoResultado.textContent = "Error: ".concat(error.message);
+            }
+            else {
+                textoResultado.textContent = "Error desconocido";
+            }
+        }
+    });
+}
+else {
+    console.error("Error: No se pudo obtener uno o más elementos del DOM.");
+}
